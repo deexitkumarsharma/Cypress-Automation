@@ -1,15 +1,7 @@
-export class HomePage{
+export class HomePage {
+  myProfileLink = ".profile > .menu-item-large-container > .menu-item-large";
 
- myProfileLink = '.profile > .menu-item-large-container > .menu-item-large';
-
-clickMyProfileLink(){
-
-cy.get(this.myProfileLink).click();
-
-
-}
-
-
-
-
+  clickMyProfileLink() {
+    cy.get(this.myProfileLink).click();
+  }
 }

@@ -2,7 +2,6 @@ import { BasePage } from "../pom/Base_Page";
 import { SignUp } from "../pom/SignUp_Page";
 import { EmailVerification } from "../pom/EmailVerification_Page";
 
-
 const basepage = new BasePage();
 
 const signup = new SignUp();
@@ -10,50 +9,36 @@ const emailverification = new EmailVerification();
 
 let profileDetails;
 
-describe('This suite will Create a new user by entering all the details -> Validating the email sent msg', function(){
+describe("This suite will Create a new user by entering all the details -> Validating the email sent msg", function () {
+  beforeEach(() => {
+    basepage.loadUrl("/");
 
-beforeEach(()=> {
+    basepage.setViewPortTo1280X720();
+  });
 
-basepage.loadUrl('/');
+  before("Before to read the values from profile details json", () => {
+    cy.readFile("./cypress/fixtures/profileDetails.json").then((data) => {
+      profileDetails = data;
+    });
+  });
 
-basepage.setViewPortTo1280X720();
+  it("This test will create a new user by entering details and will validate the email msg send", () => {
+    signup.clickSignUpBtnHmPG();
 
-})
+    signup.assertSignUpPageTitle();
 
-before('Before to read the values from profile details json',()=> {
+    signup.enterFirstName(profileDetails.firstname);
 
-cy.readFile('./cypress/fixtures/profileDetails.json').then((data) => {
+    signup.enterLastName(profileDetails.lastname);
 
-profileDetails = data;
+    signup.enterEmail(profileDetails.Email);
 
-})
+    signup.clickSignUpBtn();
 
-})
+    emailverification.assertVerificationMsgWithEmail(
+      " " + profileDetails.Email + "."
+    );
 
-it('This test will create a new user by entering details and will validate the email msg send',()=> {
-
-
-signup.clickSignUpBtnHmPG();
-
-signup.assertSignUpPageTitle();
-
-signup.enterFirstName(profileDetails.firstname);
-
-signup.enterLastName(profileDetails.lastname);
-
-signup.enterEmail(profileDetails.Email);
-
-signup.clickSignUpBtn();
-
-emailverification.assertVerificationMsgWithEmail(' ' + profileDetails.Email + '.');
-
-emailverification.assertverificationMsg();
-
-
-
-
-})
-
-
-
-})
+    emailverification.assertverificationMsg();
+  });
+});

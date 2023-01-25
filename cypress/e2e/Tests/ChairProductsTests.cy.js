@@ -1,49 +1,37 @@
 import { BasePage } from "../pom/Base_Page";
 import { ChairsPage } from "../pom/Chairs_Page";
 
-
 const basepage = new BasePage();
 const chairspage = new ChairsPage();
 
+describe("This suite will Validate Chair products price, description, image and stock details", function () {
+  beforeEach(() => {
+    basepage.loadUrl("/");
 
-describe('This suite will Validate Chair products price, description, image and stock details', function(){
+    basepage.setViewPortTo1280X720();
+  });
 
-beforeEach(()=> {
+  it("This test will validate the price, description, image and stock details of the chairs", () => {
+    chairspage.clickChairsLink();
 
-basepage.loadUrl('/');
+    //Validating / asserting all information for all chair types
 
-basepage.setViewPortTo1280X720();
+    chairspage.assertDescPriceStockIMGWickerChair();
 
-})
+    chairspage.assertDescPriceStockIMGBlackShellChair();
 
+    chairspage.assertDescPriceStockIMGWoodenStools();
 
-it('This test will validate the price, description, image and stock details of the chairs',()=> {
+    chairspage.assertDescPriceStockIMGUpholsteredWhiteChair();
 
-chairspage.clickChairsLink();
+    chairspage.assertDescPriceStockIMGWhiteShellChair();
 
-//Validating / asserting all information for all chair types 
+    chairspage.assertDescPriceStockIMGModernWoodenChair();
 
-chairspage.assertDescPriceStockIMGWickerChair();
+    chairspage.assertDescPriceStockIMGTallWoodenStool();
 
-chairspage.assertDescPriceStockIMGBlackShellChair();
+    chairspage.assertDescPriceStockIMGPlasticWhiteChair();
 
-chairspage.assertDescPriceStockIMGWoodenStools();
-
-chairspage.assertDescPriceStockIMGUpholsteredWhiteChair();
-
-chairspage.assertDescPriceStockIMGWhiteShellChair();
-
-chairspage.assertDescPriceStockIMGModernWoodenChair();
-
-chairspage.assertDescPriceStockIMGTallWoodenStool();
-
-chairspage.assertDescPriceStockIMGPlasticWhiteChair();
-
-chairspage.assertDescPriceStockIMGUpholsteredBlackBarStool();
-
-
-})
-
-
-
-})
+    chairspage.assertDescPriceStockIMGUpholsteredBlackBarStool();
+  });
+});
